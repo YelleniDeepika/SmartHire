@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Notifications | SmartHire</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        h1 {
+            color: #1e293b;
+        }
+
+        .notification-card {
+            background: white;
+            padding: 20px;
+            margin: 18px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-left: 5px solid #2563eb;
+        }
+
+        .notification-card p {
+            color: #334155;
+        }
+
+        .notification-date {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .unread {
+            background: #eff6ff;
+        }
+
+        .read-btn {
+            background: #2563eb;
+            color: white;
+            padding: 9px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            color: #2563eb;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>My Notifications</h1>
+
+    <p>Stay updated about your job applications.</p>
+
+    {% for notification in notifications %}
+
+        <div class="notification-card {% if not notification.is_read %}unread{% endif %}">
+
+            <p>{{ notification.message }}</p>
+
+            <p class="notification-date">
+                {{ notification.created_at|date:"d M Y, h:i A" }}
+            </p>
+
+            {% if not notification.is_read %}
+
+                <strong>Unread</strong>
+
+                <form method="POST"
+                      action="{% url 'mark_notification_read' notification.id %}">
+
+                    {% csrf_token %}
+
+                    <button type="submit" class="read-btn">
+                        Mark as Read
+                    </button>
+
+                </form>
+
+            {% else %}
+
+                <strong>Read</strong>
+
+            {% endif %}
+
+        </div>
+
+    {% empty %}
+
+        <p>You don't have any notifications yet.</p>
+
+    {% endfor %}
+
+    <a href="{% url 'dashboard' %}" class="back-btn">
+        Back to Dashboard
+    </a>
+
+</div>
+
+</body>
+</html>

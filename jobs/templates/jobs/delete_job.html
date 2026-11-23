@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Job | SmartHire</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f6fb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .confirmation-card {
+            background: white;
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        h1 {
+            color: #dc2626;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #64748b;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .job-title {
+            color: #172554;
+            font-weight: bold;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        button:hover {
+            background: #b91c1c;
+        }
+
+        .cancel-btn {
+            background: #64748b;
+            color: white;
+            padding: 12px 22px;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+
+        .cancel-btn:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="confirmation-card">
+
+        <h1>Delete Job?</h1>
+
+        <p>
+            Are you sure you want to delete
+            <span class="job-title">{{ job.title }}</span>?
+            This action cannot be undone.
+        </p>
+
+        <div class="buttons">
+
+            <form method="POST">
+                {% csrf_token %}
+                <button type="submit">Yes, Delete</button>
+            </form>
+
+            <a href="{% url 'my_jobs' %}" class="cancel-btn">
+                Cancel
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

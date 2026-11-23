@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SmartHire - Register</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #eaf0fb, #f5f7fc);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 25px 15px;
+        }
+
+        .container {
+            background: white;
+            padding: 35px;
+            width: 100%;
+            max-width: 480px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .logo {
+            text-align: center;
+            color: #2457a7;
+            font-size: 27px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #243b64;
+            font-size: 22px;
+            margin-bottom: 25px;
+        }
+
+        form p {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            color: #333;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d5dce8;
+            border-radius: 7px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        input:focus, select:focus {
+            border-color: #2457a7;
+            box-shadow: 0 0 0 3px rgba(36, 87, 167, 0.1);
+        }
+
+        .helptext {
+            display: block;
+            color: #777;
+            font-size: 12px;
+            margin-top: 6px;
+            line-height: 1.5;
+        }
+
+        .errorlist {
+            color: #c62828;
+            font-size: 13px;
+            margin: 6px 0;
+            padding-left: 18px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #2457a7;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #193f7c;
+        }
+
+        .login {
+            text-align: center;
+            margin-top: 22px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        a {
+            color: #2457a7;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .back-home {
+            text-align: center;
+            margin-top: 17px;
+            font-size: 13px;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="logo">SmartHire</div>
+
+    <p class="subtitle">
+        Recruitment Management Made Simple
+    </p>
+
+    <h2>Create Your Account</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">Create Account</button>
+    </form>
+
+    <p class="login">
+        Already have an account?
+        <a href="{% url 'login' %}">Login here</a>
+    </p>
+
+    <p class="back-home">
+        <a href="{% url 'home' %}">← Back to Home</a>
+    </p>
+
+</div>
+
+</body>
+</html>

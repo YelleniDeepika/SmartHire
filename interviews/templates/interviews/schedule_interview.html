@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Schedule Interview | SmartHire</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            color: #1e293b;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        input, select, textarea {
+            max-width: 100%;
+        }
+
+        a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Schedule Interview</h1>
+
+    <p>
+        <strong>Candidate:</strong>
+        {{ application.candidate.username }}
+    </p>
+
+    <p>
+        <strong>Job:</strong>
+        {{ application.job.title }}
+    </p>
+
+    <hr>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">Schedule Interview</button>
+
+    </form>
+
+    <p>
+        <a href="{% url 'recruiter_applications' %}">
+            Back to Applications
+        </a>
+    </p>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,439 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartHire | Recruitment Management System</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8faff;
+            color: #1e293b;
+        }
+
+        /* Navigation */
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background: white;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: bold;
+            color: #3157d5;
+        }
+
+        nav a {
+            text-decoration: none;
+            margin-left: 25px;
+            color: #334155;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            color: #3157d5;
+        }
+
+        /* Hero Section */
+
+        .hero {
+            text-align: center;
+            padding: 110px 20px 100px;
+            background: linear-gradient(135deg, #e8edff, #f8faff);
+        }
+
+        .tagline {
+            display: inline-block;
+            background: white;
+            color: #3157d5;
+            padding: 9px 18px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            color: #172554;
+            margin-bottom: 22px;
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            color: #3157d5;
+        }
+
+        .hero p {
+            font-size: 17px;
+            color: #64748b;
+            line-height: 1.8;
+            max-width: 680px;
+            margin: 0 auto 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 27px;
+            border-radius: 7px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 8px;
+            transition: 0.3s;
+        }
+
+        .primary {
+            background: #3157d5;
+            color: white;
+        }
+
+        .primary:hover {
+            background: #2444b3;
+        }
+
+        .secondary {
+            background: white;
+            color: #3157d5;
+            border: 1px solid #3157d5;
+        }
+
+        .secondary:hover {
+            background: #eef2ff;
+        }
+
+        /* Features */
+
+        .features {
+            padding: 75px 8%;
+            text-align: center;
+        }
+
+        .section-label {
+            color: #3157d5;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .features h2 {
+            font-size: 32px;
+            margin-bottom: 15px;
+            color: #172554;
+        }
+
+        .section-description {
+            color: #64748b;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .cards {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: white;
+            padding: 32px 25px;
+            width: 290px;
+            border-radius: 13px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.10);
+        }
+
+        .card-icon {
+            font-size: 35px;
+            margin-bottom: 18px;
+        }
+
+        .card h3 {
+            color: #3157d5;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: #64748b;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        /* Workflow */
+
+        .workflow {
+            background: #eef2ff;
+            padding: 65px 8%;
+            text-align: center;
+        }
+
+        .workflow h2 {
+            color: #172554;
+            font-size: 30px;
+            margin-bottom: 35px;
+        }
+
+        .steps {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .step {
+            background: white;
+            padding: 23px;
+            width: 220px;
+            border-radius: 10px;
+        }
+
+        .step-number {
+            background: #3157d5;
+            color: white;
+            width: 38px;
+            height: 38px;
+            line-height: 38px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            font-weight: bold;
+        }
+
+        .step h3 {
+            margin-bottom: 10px;
+            color: #1e293b;
+        }
+
+        .step p {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: #172554;
+            color: white;
+            font-size: 14px;
+        }
+
+        /* Responsive Design */
+
+        @media (max-width: 768px) {
+
+            nav {
+                flex-direction: column;
+                gap: 18px;
+                padding: 20px;
+            }
+
+            nav a {
+                margin: 0 10px;
+            }
+
+            .hero {
+                padding: 75px 20px;
+            }
+
+            .hero h1 {
+                font-size: 34px;
+            }
+
+            .features h2,
+            .workflow h2 {
+                font-size: 26px;
+            }
+
+            .card,
+            .step {
+                width: 100%;
+                max-width: 380px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .hero h1 {
+                font-size: 29px;
+            }
+
+            .btn {
+                padding: 12px 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+
+    <nav>
+        <div class="logo">SmartHire</div>
+
+        <div>
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'register' %}">Register</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+
+    <section class="hero">
+
+        <div class="tagline">
+            Recruitment Management Made Simple
+        </div>
+
+        <h1>
+            Find Your <span>Future</span><br>
+            With SmartHire
+        </h1>
+
+        <p>
+            A recruitment management platform connecting candidates
+            with job opportunities. Simplify hiring through job
+            management, application tracking and skill-based matching.
+        </p>
+
+        <a href="{% url 'register' %}" class="btn primary">
+            Get Started
+        </a>
+
+        <a href="{% url 'login' %}" class="btn secondary">
+            Login
+        </a>
+
+    </section>
+
+    <!-- Features Section -->
+
+    <section class="features">
+
+        <p class="section-label">OUR FEATURES</p>
+
+        <h2>What SmartHire Offers</h2>
+
+        <p class="section-description">
+            Everything needed to make the recruitment process
+            organized and convenient.
+        </p>
+
+        <div class="cards">
+
+            <div class="card">
+                <div class="card-icon">👩‍💻</div>
+
+                <h3>For Candidates</h3>
+
+                <p>
+                    Explore job opportunities, upload resumes,
+                    apply for jobs and track application progress.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">💼</div>
+
+                <h3>For Recruiters</h3>
+
+                <p>
+                    Publish job openings, review candidate
+                    applications and schedule interviews.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🎯</div>
+
+                <h3>Skill-Based Matching</h3>
+
+                <p>
+                    Compare resume skills with job requirements
+                    and view matching and missing skills.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Workflow Section -->
+
+    <section class="workflow">
+
+        <h2>How SmartHire Works</h2>
+
+        <div class="steps">
+
+            <div class="step">
+                <div class="step-number">1</div>
+
+                <h3>Create Account</h3>
+
+                <p>
+                    Register as a candidate or recruiter.
+                </p>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+
+                <h3>Explore Opportunities</h3>
+
+                <p>
+                    Browse jobs or publish new job openings.
+                </p>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+
+                <h3>Manage Applications</h3>
+
+                <p>
+                    Apply for jobs and track application updates.
+                </p>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+
+                <h3>Schedule Interviews</h3>
+
+                <p>
+                    Manage interview schedules and application progress.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+
+    <footer>
+        <p>© 2026 SmartHire. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>

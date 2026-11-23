@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Jobs | SmartHire</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f6fb;
+            color: #263238;
+        }
+
+        nav {
+            background: #172554;
+            color: white;
+            padding: 20px 8%;
+        }
+
+        nav h2 {
+            color: #60a5fa;
+        }
+
+        .container {
+            width: 85%;
+            max-width: 1100px;
+            margin: 40px auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #172554;
+        }
+
+        .post-btn {
+            background: #2563eb;
+            color: white;
+            padding: 12px 22px;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .job-card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .job-card h2 {
+            color: #2563eb;
+            margin-bottom: 12px;
+        }
+
+        .job-card p {
+            margin: 8px 0;
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        .empty {
+            background: white;
+            padding: 35px;
+            text-align: center;
+            border-radius: 10px;
+            color: #64748b;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #2563eb;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <h2>SmartHire</h2>
+    </nav>
+
+    <div class="container">
+
+        <div class="header">
+            <h1>My Posted Jobs</h1>
+
+            <a href="{% url 'post_job' %}" class="post-btn">
+                + Post New Job
+            </a>
+        </div>
+
+        {% for job in jobs %}
+
+            <div class="job-card">
+
+                <h2>{{ job.title }}</h2>
+
+                <p><strong>Company:</strong> {{ job.company }}</p>
+
+                <p><strong>Location:</strong> {{ job.location }}</p>
+
+                <p><strong>Salary:</strong>
+                    {{ job.salary|default:"Not specified" }}
+                </p>
+
+                <p><strong>Job Type:</strong> {{ job.job_type }}</p>
+
+                <p><strong>Description:</strong> {{ job.description }}</p>
+
+                <p><strong>Required Skills:</strong>
+                    {{ job.required_skills }}
+                </p>
+
+                <p><strong>Posted On:</strong> {{ job.created_at|date:"d M Y" }}</p>
+                <div style="margin-top: 20px; display: flex; gap: 12px;">
+
+    <a href="{% url 'edit_job' job.id %}"
+       style="background: #2563eb; color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px;">
+        Edit Job
+    </a>
+
+    <a href="{% url 'delete_job' job.id %}"
+       style="background: #dc2626; color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px;">
+        Delete Job
+    </a>
+
+</div>
+            </div>
+
+        {% empty %}
+
+            <div class="empty">
+                <h2>No Jobs Posted Yet</h2>
+                <p>Start by publishing your first job opportunity.</p>
+            </div>
+
+        {% endfor %}
+
+        <a href="{% url 'dashboard' %}" class="back-link">
+            ← Back to Dashboard
+        </a>
+
+    </div>
+
+</body>
+</html>

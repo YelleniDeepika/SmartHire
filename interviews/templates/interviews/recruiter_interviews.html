@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recruiter Interviews | SmartHire</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+        }
+
+        .interview-card {
+            background: white;
+            padding: 22px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            color: #1e293b;
+        }
+
+        a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Recruiter Interview Management</h1>
+
+    {% for interview in interviews %}
+
+        <div class="interview-card">
+
+            <h2>{{ interview.application.job.title }}</h2>
+
+            <p>
+                <strong>Candidate:</strong>
+                {{ interview.application.candidate.username }}
+            </p>
+
+            <p>
+                <strong>Company:</strong>
+                {{ interview.application.job.company }}
+            </p>
+
+            <p>
+                <strong>Date:</strong>
+                {{ interview.interview_date }}
+            </p>
+
+            <p>
+                <strong>Time:</strong>
+                {{ interview.interview_time }}
+            </p>
+
+            <p>
+                <strong>Mode:</strong>
+                {{ interview.get_mode_display }}
+            </p>
+
+            <p>
+                <strong>Status:</strong>
+                {{ interview.get_status_display }}
+            </p>
+
+            <form method="POST"
+                  action="{% url 'update_interview_status' interview.id %}">
+
+                {% csrf_token %}
+
+                <label>
+                    <strong>Update Interview Status:</strong>
+                </label>
+
+                <select name="status" required>
+
+                    <option value="scheduled"
+                        {% if interview.status == 'scheduled' %}selected{% endif %}>
+                        Scheduled
+                    </option>
+
+                    <option value="completed"
+                        {% if interview.status == 'completed' %}selected{% endif %}>
+                        Completed
+                    </option>
+
+                    <option value="cancelled"
+                        {% if interview.status == 'cancelled' %}selected{% endif %}>
+                        Cancelled
+                    </option>
+
+                </select>
+
+                <button type="submit">Update Status</button>
+
+            </form>
+
+        </div>
+
+    {% empty %}
+
+        <p>No interviews scheduled yet.</p>
+
+    {% endfor %}
+
+    <p>
+        <a href="{% url 'dashboard' %}">Back to Dashboard</a>
+    </p>
+
+</div>
+
+</body>
+</html>

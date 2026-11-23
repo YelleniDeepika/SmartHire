@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Candidate Applications | SmartHire</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .application-card {
+            background: white;
+            padding: 22px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            color: #1e293b;
+        }
+
+        .status {
+            background: #dbeafe;
+            color: #1d4ed8;
+            padding: 7px 14px;
+            border-radius: 20px;
+        }
+
+        a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Candidate Applications</h1>
+
+    <p>Review applications submitted for your job openings.</p>
+
+    {% for application in applications %}
+
+        <div class="application-card">
+
+            <h2>{{ application.job.title }}</h2>
+
+            <p>
+                <strong>Company:</strong>
+                {{ application.job.company }}
+            </p>
+
+            <hr>
+
+            <h3>Candidate Details</h3>
+
+            <p>
+                <strong>Name:</strong>
+                {{ application.candidate.get_full_name|default:application.candidate.username }}
+            </p>
+
+            <p>
+                <strong>Email:</strong>
+                {{ application.candidate.email }}
+            </p>
+
+            <p>
+                <strong>Phone:</strong>
+                {{ application.candidate.phone|default:"Not provided" }}
+            </p>
+
+            <p>
+                <strong>Applied On:</strong>
+                {{ application.applied_at|date:"d M Y" }}
+            </p>
+
+            <p>
+                <strong>Current Status:</strong>
+                <span class="status">
+                    {{ application.get_status_display }}
+                </span>
+            </p>
+
+            <form method="POST"
+                  action="{% url 'update_application_status' application.id %}">
+
+                {% csrf_token %}
+
+                <label><strong>Update Application Status:</strong></label>
+
+                <select name="status" required>
+
+                    <option value="pending"
+                        {% if application.status == 'pending' %}selected{% endif %}>
+                        Pending
+                    </option>
+
+                    <option value="reviewed"
+                        {% if application.status == 'reviewed' %}selected{% endif %}>
+                        Reviewed
+                    </option>
+
+                    <option value="shortlisted"
+                        {% if application.status == 'shortlisted' %}selected{% endif %}>
+                        Shortlisted
+                    </option>
+
+                    <option value="rejected"
+                        {% if application.status == 'rejected' %}selected{% endif %}>
+                        Rejected
+                    </option>
+
+                    <option value="selected"
+                        {% if application.status == 'selected' %}selected{% endif %}>
+                        Selected
+                    </option>
+
+                </select>
+
+                <button type="submit">Update Status</button>
+
+                <p>
+                    <a href="{% url 'schedule_interview' application.id %}">
+                        Schedule Interview
+                    </a>
+                </p>
+
+            </form>
+
+            <p>
+                <strong>Resume:</strong>
+                <a href="{{ application.resume.url }}" target="_blank">
+                    View Candidate Resume
+                </a>
+            </p>
+
+            <p>
+                <strong>Cover Letter:</strong>
+                {{ application.cover_letter|default:"Not provided" }}
+            </p>
+
+        </div>
+
+    {% empty %}
+
+        <p>No candidates have applied for your jobs yet.</p>
+
+    {% endfor %}
+
+    <a href="{% url 'dashboard' %}" class="back-btn">
+        Back to Dashboard
+    </a>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Already Applied | SmartHire</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+        }
+
+        h1 {
+            color: #1e293b;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            background: #2563eb;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Already Applied!</h1>
+
+    <p>You have already applied for {{ job.title }}.</p>
+
+    <a href="{% url 'job_list' %}">Browse More Jobs</a>
+</div>
+
+</body>
+</html>

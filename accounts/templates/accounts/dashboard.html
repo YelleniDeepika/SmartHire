@@ -1,0 +1,347 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SmartHire - Dashboard</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f6fb;
+            color: #263238;
+        }
+
+        nav {
+            background: #172554;
+            color: white;
+            padding: 18px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h2 {
+            color: #60a5fa;
+            font-size: 25px;
+        }
+
+        .logout-btn {
+            background: #2457a7;
+            color: white;
+            border: none;
+            padding: 11px 22px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .logout-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .container {
+            width: 85%;
+            max-width: 1100px;
+            margin: 40px auto;
+        }
+
+        .welcome {
+            margin-bottom: 25px;
+        }
+
+        .welcome h1 {
+            color: #172554;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .welcome h3 {
+            color: #334155;
+            margin-bottom: 8px;
+        }
+
+        .role {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .dashboard-card {
+            background: white;
+            padding: 30px;
+            border-radius: 14px;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.05);
+        }
+
+        .dashboard-card h2 {
+            color: #2457a7;
+            margin-bottom: 12px;
+        }
+
+        .description {
+            color: #64748b;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            color: #243b64;
+            margin: 25px 0 15px;
+            font-size: 19px;
+        }
+
+        .analytics-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+            margin: 20px 0 30px;
+        }
+
+        .analytics-card {
+            background: #f1f5f9;
+            padding: 24px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+
+        .analytics-card h2 {
+            color: #2457a7;
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .analytics-card p {
+            color: #475569;
+            font-size: 14px;
+        }
+
+        .actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .action-link {
+            display: block;
+            background: #2457a7;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .action-link:hover {
+            background: #193f7c;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                padding: 16px 5%;
+            }
+
+            .container {
+                width: 92%;
+                margin: 25px auto;
+            }
+
+            .dashboard-card {
+                padding: 22px;
+            }
+
+            .analytics-container,
+            .actions {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome h1 {
+                font-size: 23px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <h2>SmartHire</h2>
+
+    <form method="POST" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="logout-btn">Logout</button>
+    </form>
+</nav>
+
+<div class="container">
+
+    <div class="welcome">
+        <h1>Welcome to SmartHire!</h1>
+
+        <h3>
+            Hello, {{ request.user.first_name|default:request.user.username }}
+        </h3>
+
+        <p class="role">
+            Account Type: {{ request.user.role|title }}
+        </p>
+    </div>
+
+    <div class="dashboard-card">
+
+        {% if request.user.role == 'admin' %}
+
+            <h2>Admin Dashboard</h2>
+
+            <p class="description">
+                Manage users, recruiters and job postings.
+                Monitor the recruitment platform.
+            </p>
+
+        {% elif request.user.role == 'recruiter' %}
+
+            <h2>Recruiter Dashboard</h2>
+
+            <p class="description">
+                Publish job openings, review candidate applications
+                and organize interviews.
+            </p>
+
+            <h3 class="section-title">Recruitment Analytics</h3>
+
+            <div class="analytics-container">
+
+                <div class="analytics-card">
+                    <h2>{{ total_jobs }}</h2>
+                    <p>Total Jobs Posted</p>
+                </div>
+
+                <div class="analytics-card">
+                    <h2>{{ total_applications }}</h2>
+                    <p>Total Applications</p>
+                </div>
+
+                <div class="analytics-card">
+                    <h2>{{ total_interviews }}</h2>
+                    <p>Total Interviews</p>
+                </div>
+
+                <div class="analytics-card">
+                    <h2>{{ shortlisted_candidates }}</h2>
+                    <p>Shortlisted Candidates</p>
+                </div>
+
+            </div>
+
+            <h3 class="section-title">Recruitment Actions</h3>
+
+            <div class="actions">
+
+                <a class="action-link" href="{% url 'post_job' %}">
+                    Post a Job
+                </a>
+
+                <a class="action-link" href="{% url 'my_jobs' %}">
+                    My Posted Jobs
+                </a>
+
+                <a class="action-link" href="{% url 'recruiter_applications' %}">
+                    View Candidate Applications
+                </a>
+
+                <a class="action-link" href="{% url 'recruiter_interviews' %}">
+                    Manage Interviews
+                </a>
+
+            </div>
+
+        {% else %}
+
+            <h2>Candidate Dashboard</h2>
+
+            <p class="description">
+                Explore job opportunities, apply for suitable positions
+                and track your application progress.
+            </p>
+
+            <h3 class="section-title">My Application Analytics</h3>
+
+            <div class="analytics-container">
+
+                <div class="analytics-card">
+                    <h2>{{ candidate_total_applications }}</h2>
+                    <p>Total Applications</p>
+                </div>
+
+                <div class="analytics-card">
+                    <h2>{{ pending_applications }}</h2>
+                    <p>Pending Applications</p>
+                </div>
+
+                <div class="analytics-card">
+                    <h2>{{ shortlisted_applications }}</h2>
+                    <p>Shortlisted Applications</p>
+                </div>
+
+                <div class="analytics-card">
+                    <h2>{{ candidate_total_interviews }}</h2>
+                    <p>Scheduled Interviews</p>
+                </div>
+
+            </div>
+
+            <h3 class="section-title">Candidate Actions</h3>
+
+            <div class="actions">
+
+                <a class="action-link" href="{% url 'job_list' %}">
+                    Browse Jobs
+                </a>
+
+                <a class="action-link" href="{% url 'my_applications' %}">
+                    My Applications
+                </a>
+
+                <a class="action-link" href="{% url 'my_interviews' %}">
+                    My Interviews
+                </a>
+
+                <a class="action-link" href="{% url 'my_notifications' %}">
+                    My Notifications
+                    {% if unread_notifications > 0 %}
+                        ({{ unread_notifications }} Unread)
+                    {% endif %}
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+<footer>
+    © 2026 SmartHire. All rights reserved.
+</footer>
+
+</body>
+</html>
