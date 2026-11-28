@@ -24,12 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('9ul5-nyuhge+e=9-=hmpfzkqdpp)^(u%(npjy6bt*n%f@k4n-1', 'django-insecure-local-development-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['yelleni.pythonanywhere.com']
-CSRF_TRUSTED_ORIGINS = [
-    'https://yelleni.pythonanywhere.com',
-]
+ALLOWED_HOSTS = []
 # Application definition
 
 
