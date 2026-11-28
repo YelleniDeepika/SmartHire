@@ -1,3 +1,6 @@
+## Project Screenshot
+
+![SmartHire Home Page](static/images/banner.png)
 # SmartHire � Recruitment Management System
 
 SmartHire is a web-based recruitment platform developed using Python and Django. It helps recruiters post jobs and candidates apply for jobs.
