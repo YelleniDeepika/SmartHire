@@ -1,4 +1,6 @@
-## Project Screenshot
+# SmartHire – Online Recruitment Platform
+
+## Home Page Screenshot
 
 ![SmartHire Home Page](static/images/banner.png)
 # SmartHire � Recruitment Management System
